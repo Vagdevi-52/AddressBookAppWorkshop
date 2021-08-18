@@ -37,4 +37,4 @@ function makePromiseCall(methodType, url,async = true, data) {
       }
       console.log(methodType + " request sent to the server");
     });
-  } 
+  }

@@ -1,84 +1,93 @@
-  
-let addressBookList;
-window.addEventListener('DOMContentLoaded', (event) => {
-    if (site_properties.use_local_storage.match("true")) {
-        getAddressBookDataFromStorage()
-      } else {
-        getAddressBookDataFromServer() 
-      }
+let contactList
+window.addEventListener("DOMContentLoaded", (event) => {
+  if (site_properties.use_local_storage.match("true")) {
+    getContactFromStorage()
+  } else {
+    getContactDataFromServer() 
+  }
 });
 
-const getAddressBookDataFromStorage = () => {
-    addressBookList  = localStorage.getItem('AddressBookList') ? 
-  JSON.parse(localStorage.getItem('AddressBookList')) : []
-  procesAddressBookCount()
+const getContactFromStorage = () =>{
+  contactList = localStorage.getItem('ContactList') ? 
+  JSON.parse(localStorage.getItem('ContactList')) : []
+  procesContactCount()
   createInnerHtml()
 }
 
-function procesAddressBookCount() {
-    document.querySelector(".address-count").textContent = addressBookList.length;
+function procesContactCount() {
+  document.querySelector(".contact-count").textContent = contactList.length;
 }
 
-function getAddressBookDataFromServer() {
-    makePromiseCall("GET", site_properties.server_url, true)
-      .then(
-        (responseText) =>{
-          addressBookList = JSON.parse(responseText)
-          procesAddressBookCount()
-          createInnerHtml();
+function getContactDataFromServer() {
+  makePromiseCall("GET", site_properties.server_url, true)
+    .then(
+      (responseText) =>{
+        contactList = JSON.parse(responseText)
+        procesContactCount()
+        createInnerHtml();
+      }
+    )
+    .catch(
+      (error) =>
+        {
+            console.log("Error status"+JSON.stringify(error));
+            contactList = []
+            processContactCount()
         }
-      )
-      .catch(
-        (error) =>
-          {
-              console.log("Error status"+JSON.stringify(error));
-              addressBookList = []
-              procesAddressBookCount()
-          }
-      );  
+    );
+
 }
 
-const createInnerHTML = () => {
-    if (addressBookList.length == 0) return;
-    const headerHtml = "<th>Full Name</th><th>Address</th><th>City</th><th>State</th><th>Zip Code</th><th>Phone Number</th>";
-    let innerHtml = `${headerHtml}`;
-    for (const addressBookData of addressBookList) {
+const createInnerHtml = () => {
+  if (contactList.length == 0) {
+    return;
+  }
+  const headerHtml = `<tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip Code</th>
+    <th>Phone Number</th>
+    </tr>`;
+  let innerHtml = `${headerHtml}`;
+  for (const contact of contactList) {
+    innerHtml = `${innerHtml} 
+        <tr>
+        <td>${contact._name}</td>
+        <td>
+            ${contact._address}
+        </td>
+        <td>${contact._city}</td>
+        <td>${contact._state}</td>
+        <td>${contact._zip}</td>
+        <td>${contact._phoneNumber}</td>
+        <td>
+            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/deleteicon.png" alt="delete" id="${contact.id}" onclick="remove(this)">
+            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/delete-black-18dp.svg" alt="update" id="${contact.id}" onclick="update(this)">
+        </td>
+        </tr>`;
+  }
+  document.querySelector("#table-display").innerHTML = innerHtml;
+};
 
-        innerHtml =
-            `
-            ${innerHtml}
-            <tr>
-                <td>${addressBookData._name}</td>
-                <td class="addressColumn">${addressBookData._address}</td>
-                <td>${addressBookData._city}</td>
-                <td>${addressBookData._state}</td>
-                <td>${addressBookData._zip}</td>
-                <td>${addressBookData._phoneNumber}</td>
-                <td>
-                    <img id="${addressBookData._id}" onclick="remove(this)" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/deleteicon.png" alt="delete">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <img id="${addressBookData._id}" onclick="update(this)" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/editicon.png" alt="edit">
-                </td>
-            </tr>
-            `;
+function remove(node) {
+    let removeContact = contactList.find(contact => contact.id == node.id)
+    if (!removeContact) {
+        return
     }
-    document.querySelector('#table-display').innerHTML = innerHtml;
+    const index = contactList.map(contact => contact.id).indexOf(removeContact.id)
+    contactList.splice(index, 1); 
+    localStorage.setItem("ContactList",JSON.stringify(contactList))
+    document.querySelector(".contact-count").textContent = contactList.length
+    createInnerHtml();
 }
 
-const remove = (node) => {
-    let addressBookData = addressBookList.find(addressData => addressData._id == node.id);
-    if (!addressBookData) return;
-    const index = addressBookList.map(addressData => addressData._id).indexOf(addressBookData._id);
-    addressBookList.splice(index, 1);
-    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
-    document.querySelector(".address-count").textContent = addressBookList.length;
-    createInnerHTML();
-    location.reload();
-}
-
-const update = (node) => {
-    let addressBookData = addressBookList.find(addressData => addressData._id == node.id);
-    if (!addressBookData) return;
-    localStorage.setItem('editAddress', JSON.stringify(addressBookData));
-    window.location = "../pages/addressBookForm.html";
-}
+function update(node) {
+    let contactEdit = contactList.find(editContact => editContact.id == node.id)
+    if (!contactEdit) {
+        return
+    }
+    localStorage.setItem('contactEdit',JSON.stringify(contactEdit))
+    window.location.replace("C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\AddressBookForm.html")
+  }

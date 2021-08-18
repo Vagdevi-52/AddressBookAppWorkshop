@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\addressBookForm.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,500&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <title>Address Book Home</title>
-    <script defer src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\addressBookHome.js"></script>
-</head>
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\addressBookForm.css" />
+    <title>Address Book App</title>
+  </head>
 
-<body>
+  <body>
     <header class="header-content header">
-        <div class="logo-content">
-            <img class="logo-content-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/logo.png" alt="">
-            <div>
-                <span class="address-text">ADDRESS</span><br>
-                <span class="address-text address-detail-text">BOOK</span>
-            </div>
+      <div class="logo-content">
+        <img
+          src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/AddressBookicon.png"
+          alt="logo"
+        />
+        <div>
+          <span class="addressBook-text">Address</span><br />
+          <span class="addressBook-text addressBook-book">Book</span>
         </div>
+      </div>
     </header>
-
     <div class="main-content">
-        <div class="header-content">
-            <div class="address-book-text">
-                Person Details&nbsp;<div class="address-count"></div>
+        <div class="main-header-content">
+            <div class="addressbook-detail-text">
+                Person Details <div class="contact-count"></div>
             </div>
             <a href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\AddressBookForm.html" class="add-button">
-                <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/addicon.png" alt="">Add Address</a>
+            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/addicon.png" alt="">Add Person
+            </a>
         </div>
+    </div>
+    <div class="main-content">   
         <div class="table-main">
             <table id="table-display" class="table">
+            
             </table>
         </div>
     </div>
     <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\addressBookHome.js"></script>
-</body>
-
+    <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\http_service.js"></script>
+    <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\site_properties.js"></script>
+  </body>
 </html>

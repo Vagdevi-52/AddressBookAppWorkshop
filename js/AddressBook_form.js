@@ -1,225 +1,232 @@
-let isUpdate = false;
-let addressBookObj = {};
+let isUpdate = false
+let contactObj = {}
 let server_url = " http://localhost:3000/EmployeePayrollDB/";
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
+  //validate first name
+  const name = document.querySelector("#name");
+  name.addEventListener("input", function () {
+    if (name.value.length == 0) {
+      setTextValue(".name-error","")
+      return;
+    }
+    try {
+      checkName(name.value)
+      setTextValue(".name-error","")
+    } catch (error) {
+      setTextValue(".name-error",error)
+    }
+  });
 
-    const name = document.querySelector('#name');
-    const textError = document.querySelector('.text-error');
-    const textErrorNew = document.querySelector('.text-error-new');
+  //validation for phone number
+  const phoneNumber = document.querySelector("#phoneNumber");
+  phoneNumber.addEventListener("input", function () {
+    if (phoneNumber.value.length == 0) {
+      setTextValue(".tel-error","")
+      return;
+    }
+    try {
+      checkNumber(phoneNumber.value)
+      setTextValue(".tel-error","")
+    } catch (error) {
+      setTextValue(".tel-error",error);
+    }
+  });
 
-    name.addEventListener('input', function () {
-        if (name.value.length == 0) {
-            setTextValue(".name-error","")
-            return;
-        }
-
-        try {
-            (new AddressBookData()).name = name.value;
-            checkName(name.value)
-            setTextValue(".name-error","")
-        } catch (e) {
-            setTextValue(".name-error",e)
-        }
-    });
-
-    const address = document.querySelector('#address');
-    const addressTextError = document.querySelector('.address-text-error');
-    const addressTextErrorNew = document.querySelector('.address-text-error-new');
-
-    address.addEventListener('input', function () {
-        if (address.value.length == 0) {
-            addressTextError.textContent = "";
-            return;
-        }
-
-        try {
-            (new AddressBookData()).address = address.value;
-            addressTextError.textContent = "";
-        } catch (e) {
-            addressTextErrorNew.textContent = "";
-            addressTextError.textContent = e;
-        }
-    });
-
-    const phoneNumber = document.querySelector('#phoneNumber');
-    const phoneNumberTextError = document.querySelector('.phoneNumber-text-error');
-    const phoneNumberTextErrorNew = document.querySelector('.phoneNumber-text-error-new');
-
-    phoneNumber.addEventListener('input', function () {
-        if (phoneNumber.value.length == 0) {
-            setTextValue(".phoneNumber-text-error","")
-            return;
-        }
-
-        try {
-            (new AddressBookData()).phoneNumber = phoneNumber.value;
-            checkNumber(phoneNumber.value)
-            setTextValue(".phoneNumber-text-error","")
-        } catch (e) {
-            setTextValue(".phoneNumber-text-error",e)
-        }
-    });
-
-    checkForUpdate();
+  //validation for zip code
+  const zip = document.querySelector("#zip");
+  zip.addEventListener("input", function () {
+    if (zip.value.length == 0) {
+      setTextValue(".zip-error","")
+      return;
+    }
+    try {
+      checkZip(zip.value)
+      setTextValue(".zip-error","")
+    } catch (error) {
+      setTextValue(".zip-error",error)
+    }
+  });
+  checkForUpdate();
+  localStorage.removeItem('contactEdit')
 });
 
-const save = () => {
-    try {
-        setAddressBookObject();
-        createAndUpdateStorage();
-
-        resetForm();
-        window.location = "../pages/addressBookHome.html";
-    } catch (e) {
-        alert("Oops!!! There's an error ======> " + e);
-        alert("Please correct the details & try again...!!!");
-        return;
-    }
-}
-
-const setAddressBookObject = () => {
-    addressBookObj._name = getInputValueById('#name');
-    addressBookObj._phoneNumber = getInputValueById('#phoneNumber');
-    addressBookObj._address = getInputValueById('#address');
-    addressBookObj._city = getInputValueById('#city');
-    addressBookObj._state = getInputValueById('#state');
-    addressBookObj._zip = getInputValueById('#zipCode');
-}
-
-const createaAddressBook = () => {
-    let addressBookData = new AddressBookData();
-
-    addressBookData.id = createNewAddressId();
-    addressBookData.name = getInputValueById('#name');
-    addressBookData.phoneNumber = getInputValueById('#phoneNumber');
-    addressBookData.address = getInputValueById('#address');
-    addressBookData.city = getInputValueById('#city');
-    addressBookData.state = getInputValueById('#state');
-    addressBookData.zip = getInputValueById('#zipCode');
-    alert("Object created successfully with id : " + addressBookData._id + " -----> " + addressBookData.toString());
-    return addressBookData;
+function save() {
+  try {
+    setContactObject()
+    if (site_properties.use_local_storage.match("true")) {
+      resetForm()
+        createAndUpdateStorage()
+        resetForm()
+        window.location.replace(site_properties.home_page)
+      } else {
+        createAndUpdateContactInServer()
+      }
+  } catch (error) {
+    alert(error);
+  }
 }
 
 function createAndUpdateStorage() {
-    let addressBookList = JSON.parse(localStorage.getItem("AddressBookList"));
-    if (addressBookList) {
-        let addressBookData = addressBookList.find(addressData => addressData.id == addressBookObj.id);
-        if (!addressBookData) {
-            addressBookList.push(createAddressBookData());
-        } else {
-            const index = addressBookList.map(addressData => addressData.id).indexOf(addressBookData.id);
-            addressBookList.splice(index, 1, createAddressBookData(addressBookData.id));
-        }
-
-    } else {
-        addressBookList = [createAddressBookData()];
+  let contactList = JSON.parse(localStorage.getItem("ContactList"))
+  if (contactList != undefined) {
+    let contactData = contactList.find(contactData => contactData.id == contactObj.id)
+    if(!contactData){
+      contactList.push(contactObj)
+    }else{
+      const index = contactList.map(contactData => contactData.id).indexOf(contactData.id)
+      contactList.splice(index,1,contactObj)
     }
-    alert("Local Storage Updated Successfully!\nTotal Addresses ----> " + addressBookList.length);
-    localStorage.setItem("AddressBookList", JSON.stringify(addressBookList));
+  } else {
+    contactList = [contactObj]
+  }
+  localStorage.setItem("ContactList",JSON.stringify(contactList))
 }
 
-const createAddressBookData = (id) => {
-    let addresBookData = new AddressBookData();
-    if (!id) addresBookData.id = createNewAddressId();
-    else addresBookData.id = id;
-    setAddressBookData(addresBookData);
-    return addresBookData;
+function createAndUpdateContactInServer() {
+  let postUrl = site_properties.server_url
+  let methodCall = "POST"
+  makePromiseCall(methodCall, postUrl, true, contactObj)
+  .then(
+    (responseText) =>
+    {
+      resetForm()
+      window.location.replace(site_properties.home_page)
+            }
+        )
+        .catch(
+          (error) =>{
+            throw error
+          }
+        );
 }
 
-const createNewAddressId = () => {
-    let addressID = localStorage.getItem("AddressID");
-    if (addressID == undefined) {
-        addressID = 0;
+
+function createContact(id) {
+  let contact = new Contact()
+    if (!id) {
+      contact.id = generateId()
     }
-    addressID = !addressID ? 1 : (parseInt(addressID) + 1).toString();
-    localStorage.setItem("AddressID", addressID);
-    return addressID;
-}
-
-const setAddressBookData = (addressBookData) => {
-
-    try {
-        addressBookData.name = addressBookObj._name;
-    } catch (e) {
-        setTextValue('.text-error', e);
-        throw e;
+    else{
+      contact.id = id
     }
-
-    try {
-        addressBookData.phoneNumber = addressBookObj._phoneNumber;
-    } catch (e) {
-        setTextValue('.phoneNumber-text-error', e);
-        throw e;
-    }
-
-    try {
-        addressBookData.address = addressBookObj._address;
-    } catch (e) {
-        setTextValue('.address-text-error', e);
-        throw e;
-    }
-
-    addressBookData.city = addressBookObj._city;
-    addressBookData.state = addressBookObj._state;
-    addressBookData.zip = addressBookObj._zip;
-
-    alert(addressBookData.toString());
+    setContactData(contact)
+    return contact
 }
 
 
-const getInputValueById = (id) => {
-    let value = document.querySelector(id).value;
-    return value;
+function setContactData(contact) {
+  try {
+    contact.name = getInputValueById("#name");
+  } catch (error) {
+    setTextValue(".name-error", error);
+    throw error;
+  }
+
+  try {
+    contact.phoneNumber = getInputValueById("#phoneNumber");
+  } catch (error) {
+    setTextValue(".tel-error", error);
+    throw error;
+  }
+  contact.address = getInputValueById("#address");
+  let city = getInputValueById("#city");
+  if (city != "Select City") {
+    contact.city = city;
+  } else {
+    throw "Please select city";
+  }
+  let state = getInputValueById("#state");
+  if (state != "Select State") {
+    contact.state = state;
+  } else {
+    throw "Please select state";
+  }
+
+  try {
+    contact.zip = getInputValueById("#zip");
+  } catch (error) {
+    setTextValue(".zip-error", error);
+    throw error;
+  }
+  console.log(contact.toString());
+  return contact
 }
 
-const setValue = (id, value) => {
-    const element = document.querySelector(id);
-    element.value = value;
+function getInputValueById(property) {
+  let value = document.querySelector(property).value;
+  return value;
 }
 
+function resetForm() {
+    setValue("#name", "");
+    setValue("#phoneNumber", "");
+    setValue("#address", "");
+    setValue("#city", "Select City");
+    setValue("#state", "Select State");
+    setValue("#zip", "");
+  }
 
-const checkForUpdate = () => {
-    const addressBookJson = localStorage.getItem('editAddress');
-    isUpdate = addressBookJson ? true : false;
-    if (!isUpdate) return;
-    addressBookObj = JSON.parse(addressBookJson);
-    setForm();
+function setValue(id, value) {
+const element = document.querySelector(id);
+element.value = value;
 }
 
-const setForm = () => {
-    setValue('#name', addressBookObj._name);
-    setValue('#phoneNumber', addressBookObj._phoneNumber);
-    setValue('#address', addressBookObj._address);
-    setValue('#city', addressBookObj._city);
-    setValue('#state', addressBookObj._state);
-    setValue('#zipCode', addressBookObj._zip);
+function checkForUpdate(){
+  const contactJson = localStorage.getItem('contactEdit')
+  isUpdate = contactJson ? true : false;
+  if(!isUpdate){
+    return
+  }
+  contactObj = JSON.parse(contactJson)
+  setForm()
 }
 
-const resetForm = () => {
-    setValue('#name', '');
-    setValue('#phoneNumber', '');
-    setValue('#address', '');
-    setValue('#city', '');
-    setValue('#state', '');
-    setValue('#zipCode', '');
-
-    const textError = document.querySelector('.text-error');
-    const textErrorNew = document.querySelector('.text-error-new');
-    textError.textContent = "";
-    textErrorNew.textContent = "";
-
-    const addressTextError = document.querySelector('.address-text-error');
-    const addressTextErrorNew = document.querySelector('.address-text-error-new');
-    addressTextError.textContent = "";
-    addressTextErrorNew.textContent = "";
-
-    const phoneNumberTextError = document.querySelector('.phoneNumber-text-error');
-    const phoneNumberTextErrorNew = document.querySelector('.phoneNumber-text-error-new');
-    phoneNumberTextError.textContent = "";
-    phoneNumberTextErrorNew.textContent = "";
+function setForm() {
+  setValue("#name",contactObj._name)
+  setValue("#phoneNumber", contactObj._phoneNumber);
+  setValue("#address", contactObj._address);
+  setValue("#city", contactObj._city);
+  setValue("#state", contactObj._state);
+  setValue("#zip", contactObj._zip);
 }
+
+function generateId() {
+  let empId = localStorage.getItem("ContactID")
+  empId = !empId ? 1 : (parseInt(empId)+1).toString()
+  localStorage.setItem("ContactID",empId)
+  return empId
+}
+
+function setContactObject() {
+  if (!isUpdate && site_properties.use_local_storage.match("true")) {
+    contactObj.id = generateId()
+  }
+  try {
+    contactObj._name = getInputValueById("#name");
+  } catch (error) {
+    setTextValue(".name-error", error);
+    throw error;
+  }
+
+  try {
+    contactObj._phoneNumber = getInputValueById("#phoneNumber");
+  } catch (error) {
+    setTextValue(".tel-error", error);
+    throw error
+  }
+  contactObj._address = getInputValueById("#address");
+  contactObj._city = getInputValueById("#city");
+  contactObj._state = getInputValueById("#state");
+  try {
+    contactObj._zip = getInputValueById("#zip");
+  } catch (error) {
+    setTextValue(".zip-error", error);
+    throw error
+  }
+}
+
 
 function setTextValue(component,problem){
-    let textError = document.querySelector(component);
-    textError.textContent = problem
-} 
+  let textError = document.querySelector(component);
+  textError.textContent = problem
+}
