@@ -1,4 +1,3 @@
-  
 class AddressBookContact {
 
     //Getters & Setters
