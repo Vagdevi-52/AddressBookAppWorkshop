@@ -1,86 +1,68 @@
+  
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <title>Address Book</title>
-    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\AddressBook.css" />
-    <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\Js\AddressBook_Form.js" defer></script>
+    <link rel="icon" href="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/AddressBookicon.png">
+    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\AddressBook.css">
+    <title>Address Book Form</title>
 </head>
-
 <body>
     <header class="header-content header">
-        <div class="logo-content">
-            <img class="logo-content-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/AddressBookicon.png" alt="">
+        <div class="logo">
+            <img class="logo-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/AddressBookicon.png" alt="Logo">
             <div>
-                <span class="emp-text">ADDRESS</span><br>
-                <span class="emp-text emp-payroll">BOOK</span>
+                <span class="address-text">ADDRESS</span>
+                <span class="address-text book-text">BOOK</span>
             </div>
         </div>
-    </header>
-
-    <div class="form-content">
-        <form class="form" action="#" onsubmit="save(); return false">
+    </header> 
+    <!--------------form content------>
+    <div id="formId" class="form-content">
+        <form class="form" action="#" onsubmit="save();" onreset="resetForm()">
             <div class="form-head">
-                Address Book Form
-                <a href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\Home.html"><img class="logo-content-img-head" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/cancel%20icon.png" alt=""></a>
+                <div class="header-text">Person Address Form </div>
+                <div>
+                    <a href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\Home.html"><img class="cancel-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/cancel%20icon.png"
+                            alt="Cancel Icon"></a>
+                </div>
             </div>
             <div class="row-content">
-                <label class="label text" for="name">Name</label>
-                <input class="input" type="text" id="name" name="name" placeholder="Your full name..." required>
+                <label for="fullname" class="label text">Full Name</label>
+                <input type="text" class="input" id="fullname" name="fullname" required>
                 <error-output class="text-error" for="text"></error-output>
-                <error-output class="text-error-new" for="text"></error-output>
             </div>
             <div class="row-content">
-                <label class="label text" for="phoneNumber">Phone Number</label>
-                <input class="input" type="number" id="phoneNumber" name="phoneNumber"
-                    placeholder="" required>
-                <phoneNumber-error-output class="phoneNumber-text-error" for="text"></phoneNumber-error-output>
-                <phoneNumber-error-output class="phoneNumber-text-error-new" for="text"></phoneNumber-error-output>
+                <label for="tel" class="label text">Phone Number</label>
+                <input type="tel" id="tel" name="tel" class="input">
+                <error-output class="mobno-error" for="tel"></error-output>
             </div>
             <div class="row-content">
-                <label class="label text" for="address">Address</label>
-                <textarea id="address" class="input" name="address" placeholder=""
-                    style="height:100px" required></textarea>
-                <address-error-output class="address-text-error" for="text"></address-error-output>
-                <address-error-output class="address-text-error-new" for="text"></address-error-output>
+                <label for="notes" class="label text">Address</label>
+                <textarea class="input text" name="notes" id="address" style="height: 100px;"></textarea>
             </div>
-            <div class="row-content">
-                <div class="inlineContent">
-                    <label class="label inlineText"
-                        for="city">City</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label class="label inlineText"
-                        for="state">State</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label class="label inlineText" for="zipCode">Zip Code</label>
-                </div>
-
-                <div id="cityAndState">
-                    <select id="city" name="City" required>
-                        <option value="" disabled selected>Select city</option>
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Pune">Pune</option>
-                        <option value="Bangalore">Bangalore</option>
-                        <option value="Bangalore">Indore</option>
+            <div class="select-items">
+                <div name="citySelect" id="citySelect" class="selectDiv">
+                    <label for="city" class="label text">City</label>
+                    <select name="city" id="city">
+                        <option value="">Select City</option>
                     </select>
-                    <select id="state" name="State" required>
-                        <option value="" disabled selected>Select state</option>
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    </select>
-                    <input class="input" type="number" id="zipCode" name="zipCode" placeholder="" required>
                 </div>
-            </div>
-            <div class="buttonParent">
-                <div class="submit-reset">
-                    <button type="submit" class="button addButton" id="addButton" onmouseover="">Add</button>
-                    <button type="reset" class="resetButton button">Reset</button>
+                <div name="stateSelect" id="stateSelect" class="selectDiv">
+                    <label for="state" class="label text">State</label>
+                    <select name="state" id="state">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+                <div name="zipSelect" id="zipSelect">
+                    <label for="zip" class="label text">ZipCode</label>
+                    <input class="input" type="number" name="zip" id="zip" required>
                 </div>
             </div>
         </form>
     </div>
 </body>
-
 </html>
