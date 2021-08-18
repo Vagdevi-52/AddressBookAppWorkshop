@@ -52,5 +52,5 @@ const update = (node) => {
     let addressBookData = addressBookList.find(addressData => addressData._id == node.id);
     if (!addressBookData) return;
     localStorage.setItem('editAddress', JSON.stringify(addressBookData));
-    window.location = "C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\AddressBook.html";
+    window.location = "../pages/addressBookForm.html";
 }

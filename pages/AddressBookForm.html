@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <title>Address Book</title>
-    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\AddressBook.css" />
+    <link rel="stylesheet" href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\css\addressBookForm.css" />
     <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\AddressBook_form.js" defer></script>
+    <script src="../js/site_properties.js"></script>
+    <script src="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\js\utility.js"></script>
 </head>
 
 <body>
     <header class="header-content header">
         <div class="logo-content">
-            <img class="logo-content-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/AddressBookicon.png" alt="">
+            <img class="logo-content-img" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/logo.png" alt="">
             <div>
                 <span class="emp-text">ADDRESS</span><br>
                 <span class="emp-text emp-payroll">BOOK</span>
@@ -24,8 +26,8 @@
     <div class="form-content">
         <form class="form" action="#" onsubmit="save(); return false">
             <div class="form-head">
-                Address Book Form
-                <a href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\Home.html"><img class="logo-content-img-head" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/cancel%20icon.png" alt=""></a>
+                ADDRESS BOOK FORM
+                <a href="C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\addressBookHome.html"><img class="logo-content-img-head" src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/cancel%20icon.png" alt=""></a>
             </div>
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
@@ -36,13 +38,13 @@
             <div class="row-content">
                 <label class="label text" for="phoneNumber">Phone Number</label>
                 <input class="input" type="number" id="phoneNumber" name="phoneNumber"
-                    placeholder="" required>
+                    placeholder="Your Phone Number..." required>
                 <phoneNumber-error-output class="phoneNumber-text-error" for="text"></phoneNumber-error-output>
                 <phoneNumber-error-output class="phoneNumber-text-error-new" for="text"></phoneNumber-error-output>
             </div>
             <div class="row-content">
                 <label class="label text" for="address">Address</label>
-                <textarea id="address" class="input" name="address" placeholder=""
+                <textarea id="address" class="input" name="address" placeholder="Your complete address..."
                     style="height:100px" required></textarea>
                 <address-error-output class="address-text-error" for="text"></address-error-output>
                 <address-error-output class="address-text-error-new" for="text"></address-error-output>
@@ -70,7 +72,9 @@
                         <option value="Karnataka">Karnataka</option>
                         <option value="Madhya Pradesh">Madhya Pradesh</option>
                     </select>
-                    <input class="input" type="number" id="zipCode" name="zipCode" placeholder="" required>
+                    <input class="input" type="number" id="zipCode" name="zipCode" placeholder="Zip Code..." required>
+                    <zip-error-output class="zip-text-error" for="text"></zip-error-output>
+                    <zip-error-output class="zip-text-error-new" for="text"></zip-error-output>
                 </div>
             </div>
             <div class="buttonParent">
