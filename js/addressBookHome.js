@@ -63,8 +63,8 @@ const createInnerHtml = () => {
         <td>${contact._zip}</td>
         <td>${contact._phoneNumber}</td>
         <td>
-            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/deleteicon.png" alt="delete" id="${contact.id}" onclick="remove(this)">
-            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/delete-black-18dp.svg" alt="update" id="${contact.id}" onclick="update(this)">
+            <img src="../assets/icons/delete-black-18dp.svg" alt="delete" id="${contact.id}" onclick="remove(this)">
+            <img src="../assets/icons/create-black-18dp.svg" alt="update" id="${contact.id}" onclick="update(this)">
         </td>
         </tr>`;
   }
@@ -89,5 +89,5 @@ function update(node) {
         return
     }
     localStorage.setItem('contactEdit',JSON.stringify(contactEdit))
-    window.location.replace("C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\AddressBookForm.html")
+    window.location.replace("../pages/AddressBookFrom.html")
   }

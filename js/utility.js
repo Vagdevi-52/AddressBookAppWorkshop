@@ -17,4 +17,3 @@ function checkZip(zip) {
       if (!zipRegex.test(zip)) {
         throw "zip is incorrect";
       }
-}

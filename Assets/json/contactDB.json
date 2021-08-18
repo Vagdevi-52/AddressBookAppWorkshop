@@ -1,22 +1,49 @@
 {
     "ContactDB": [
-        {
-            "id": 1,
-            "_name": "vagdevi",
-            "_phoneNumber": "91 9959502318",
-            "_address": "Agraharam street",
-            "_city": "Bobbilli",
-            "_state": "Visakapatnam",
-            "_zip": "530047"
-        },
-        {
-            "id": 2,
-            "_name": "Subrahmanaym",
-            "_phoneNumber": "91 9121973435",
-            "_address": "Jubli street",
-            "_city": "Hyderabad",
-            "_state": "Telangana",
-            "_zip": "613211"
-        }
+      {
+        "id": 1,
+        "_name": "Prabhas",
+        "_phoneNumber": "90 9874563210",
+        "_address": "Hyderabad",
+        "_city": "Hyderabad",
+        "_state": "telanagana",
+        "_zip": "410201"
+      },
+      {
+        "id": 2,
+        "_name": "polard",
+        "_phoneNumber": "91 9234567890",
+        "_address": "westindies",
+        "_city": "Chitown",
+        "_state": "iillojg",
+        "_zip": "410141"
+      },
+      {
+        "id": 3,
+        "_name": "polard",
+        "_phoneNumber": "91 9236767890",
+        "_address": "Mumbai",
+        "_city": "Mumbai",
+        "_state": "Maharashtra",
+        "_zip": "410141"
+      },
+      {
+        "_name": "Ishan kishan",
+        "_phoneNumber": "98 96321220341",
+        "_address": "konichiwa",
+        "_city": "Hyderabad",
+        "_state": "Lakshadweep",
+        "_zip": "410141",
+        "id": 4
+      },
+      {
+        "_name": "Jayesh mali",
+        "_phoneNumber": "90 9874563210",
+        "_address": "op",
+        "_city": "Surat",
+        "_state": "Himachal Pradesh",
+        "_zip": "410141",
+        "id": 5
+      }
     ]
-} 
+  }
