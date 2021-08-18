@@ -2,48 +2,30 @@
     "ContactDB": [
       {
         "id": 1,
-        "_name": "Prabhas",
-        "_phoneNumber": "90 9874563210",
-        "_address": "Hyderabad",
-        "_city": "Hyderabad",
-        "_state": "telanagana",
-        "_zip": "410201"
+        "_name": "Rakesh",
+        "_phoneNumber": "91 9491760546",
+        "_address": "srikakulam",
+        "_city": "srikakulam",
+        "_state": "Andhra Pradesh",
+        "_zip": "567893"
       },
       {
         "id": 2,
-        "_name": "polard",
-        "_phoneNumber": "91 9234567890",
-        "_address": "westindies",
-        "_city": "Chitown",
-        "_state": "iillojg",
-        "_zip": "410141"
+        "_name": "Krithik Kroshan",
+        "_phoneNumber": "91 9234566894",
+        "_address": "thoda",
+        "_city": "Chennai",
+        "_state": "Tamil Naidu",
+        "_zip": "415641"
       },
       {
         "id": 3,
-        "_name": "polard",
-        "_phoneNumber": "91 9236767890",
-        "_address": "Mumbai",
-        "_city": "Mumbai",
-        "_state": "Maharashtra",
+        "_name": "Ntr",
+        "_phoneNumber": "91 9254367890",
+        "_address": "gujarat",
+        "_city": "californiaa",
+        "_state": "gandhinagar",
         "_zip": "410141"
-      },
-      {
-        "_name": "Ishan kishan",
-        "_phoneNumber": "98 96321220341",
-        "_address": "konichiwa",
-        "_city": "Hyderabad",
-        "_state": "Lakshadweep",
-        "_zip": "410141",
-        "id": 4
-      },
-      {
-        "_name": "Jayesh mali",
-        "_phoneNumber": "90 9874563210",
-        "_address": "op",
-        "_city": "Surat",
-        "_state": "Himachal Pradesh",
-        "_zip": "410141",
-        "id": 5
       }
     ]
   }

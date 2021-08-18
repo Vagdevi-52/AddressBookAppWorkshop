@@ -63,8 +63,8 @@ const createInnerHtml = () => {
         <td>${contact._zip}</td>
         <td>${contact._phoneNumber}</td>
         <td>
-            <img src="../assets/icons/delete-black-18dp.svg" alt="delete" id="${contact.id}" onclick="remove(this)">
-            <img src="../assets/icons/create-black-18dp.svg" alt="update" id="${contact.id}" onclick="update(this)">
+            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/delete-black-18dp.svg" alt="delete" id="${contact.id}" onclick="remove(this)">
+            <img src="file:///C:/Users/MY%20PC/OneDrive/Desktop/AddressBookHtmlWorkShop/Assets/Images/editicon.png" alt="update" id="${contact.id}" onclick="update(this)">
         </td>
         </tr>`;
   }
@@ -78,9 +78,25 @@ function remove(node) {
     }
     const index = contactList.map(contact => contact.id).indexOf(removeContact.id)
     contactList.splice(index, 1); 
+    if (site_properties.use_local_storage.match("true")) {
     localStorage.setItem("ContactList",JSON.stringify(contactList))
     document.querySelector(".contact-count").textContent = contactList.length
     createInnerHtml();
+    }
+    else{
+      const deleteUrl = site_properties.server_url + removeContact.id.toString()
+      console.log(deleteUrl);
+      makePromiseCall("DELETE", deleteUrl, false)
+      .then(
+        (responseText) =>
+          createInnerHtml()
+      )
+      .catch(
+        (error) =>{
+            console.log("Delete Error Status: "+JSON.stringify(error));
+        }
+      );
+  }
 }
 
 function update(node) {
@@ -89,5 +105,5 @@ function update(node) {
         return
     }
     localStorage.setItem('contactEdit',JSON.stringify(contactEdit))
-    window.location.replace("../pages/AddressBookFrom.html")
+    window.location.replace("C:\Users\MY PC\OneDrive\Desktop\AddressBookHtmlWorkShop\pages\AddressBookForm.html")
   }
