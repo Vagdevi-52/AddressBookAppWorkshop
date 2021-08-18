@@ -20,7 +20,7 @@
         </div>
     </header>
 
-    <div id="formId" class="form-content" autocomplete="Off">
+    <div id="formId" class="form-content">
         <form class="form" action="#" onreset="resetForm()" onsubmit="saveForm(event)">
             <div class="address-header">
                 <div class="address-header-content">Address Book Form</div>
@@ -30,18 +30,24 @@
             <br><br>
             <div class="row-content">
                 <label class="label text" for="name">Full Name</label>
+                <div class="error-div">
                 <input class="input" type="text" name="name" id="name" placeholder="" required>
                 <error-output class="name-error" for="name"></error-output>
+                </div>
             </div>
             <div class="row-content">
                 <label class="label text" for="number">Mobile Number</label>
+                <div class="error-div">
                 <input class="input" type="text" name="mobile" id="mobile" placeholder="" required>
                 <error-output class="mobile-error" for="mobile"></error-output>
+                </div>
             </div>
             <div class="row-content address-label">
                 <label class="label text" for="address">Address</label>
+                <div class="error-div"></div>
                 <textarea class="input address-text" type="text" name="address" id="address" placeholder="" required ></textarea>
                 <error-output class="address-error" for="address"></error-output>
+                </div>
             </div>
             <div class="row-content inner-rows">
                 <div class="columns-content">
@@ -112,7 +118,7 @@
               </div>
             </div>
                 <div class="submit-reset">
-                    <button type="submit" class="button submitButton" id="submitButton">Add</button>
+                    <button type="submit" class="button submitButton" id="submitButton">Submit</button>
                     <button type="button" onclick="resetForm()" class="resetButton button">Reset</button>
                 </div>
         </form>
